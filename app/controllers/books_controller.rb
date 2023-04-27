@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
@@ -9,11 +10,10 @@ class BooksController < ApplicationController
   def index
     @book = Book.new
 
-    @books = Book.includes(:favorited_users).
-      sort {|a,b|
-        b.favorited_users.size <=>
-        a.favorited_users.size
-      }
+    @books = Book.all.sort {|a,b|
+      b.favorites.size <=>
+      a.favorites.size
+    }
   end
 
   def create
