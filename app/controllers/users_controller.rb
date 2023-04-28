@@ -29,6 +29,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def daily_search
+    user = User.find(params[:user_id])
+    @books = user.books.where(created_at: params[:created_at].to_date.all_day)
+  end
+
   private
 
   def user_params

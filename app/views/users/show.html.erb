@@ -10,6 +10,9 @@
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
 
+      <%= render 'daily_search', user: @user %>
+
+      <br>
       <h3>投稿数の前日比・前週比</h3>
         <div class="table_width">
           <table class='table table-bordered'>
