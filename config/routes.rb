@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :chats, only: [:create, :show]
   resources :groups do
     get "join" => "groups#join"
+    resources :event_notices, only: [:new, :create]
+    get "event_notices" => "event_notices#sent"
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

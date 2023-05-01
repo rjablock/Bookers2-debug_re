@@ -22,15 +22,16 @@
                   ・<%= member.name %>
                 <% end %>
               </td>
-              <td>
-                <% if @group.owner_id == current_user.id %>
-                  <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-success" %>
+              
+               <% if @group.owner_id == current_user.id %>
+                 <td><%= link_to 'Edit', edit_group_path(@group), class: "btn btn-success" %></td>
+                 <td><%= link_to 'Notice an Event', new_group_event_notice_path(@group), class: "btn btn-primary" %></td>
                <% elsif @group.users.include?(current_user) %>
-                 <%= link_to 'Leave this group', group_path(@group), method: :delete, class: "btn btn-danger" %>
+                 <td><%= link_to 'Leave this group', group_path(@group), method: :delete, class: "btn btn-danger" %></td>
                <% else %>
-                 <%= link_to 'Join this group', group_join_path(@group), class: "btn btn-success" %>
+                 <td><%= link_to 'Join this group', group_join_path(@group), class: "btn btn-success" %></td>
                <% end %>
-             </td>
+             
             </tr>
         </tbody>
       </table>
