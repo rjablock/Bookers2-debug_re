@@ -25,6 +25,7 @@
               <td><%= image_tag group.get_image, size:'50x50' %></td>
               <td><%= link_to group.name, group %></td>
               <td><%= group.introduction %></td>
+              <td><%= group.users.count %></td>
               <td><%= link_to "Edit", edit_group_path(group), class: "btn btn-success" %></td>
             </tr>
           <% end %>
