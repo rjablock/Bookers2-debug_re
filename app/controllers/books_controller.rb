@@ -14,10 +14,16 @@ class BooksController < ApplicationController
   def index
     @book = Book.new
 
-    @books = Book.all.sort {|a,b|
+    if params[:latest]
+      @books = Book.latest
+    elsif params[:star_count]
+      @books = Book.star_count
+    else
+      @books = Book.all.sort {|a,b|
       b.favorites.size <=>
       a.favorites.size
     }
+    end
   end
 
   def create
@@ -62,4 +68,5 @@ class BooksController < ApplicationController
       redirect_to books_path
     end
   end
+
 end
