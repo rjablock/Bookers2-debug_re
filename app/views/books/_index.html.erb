@@ -25,7 +25,7 @@
         <td class="favorite-btn"><%= render "favorites/btn", book: book %></td>
         <td class="view-count">閲覧数: <%= book.view_counts.count %></td>
         <td><%= render "books/static_star", book: book %></td>
-        <td><%= l book.created_at %></td>
+        <!--<td><%#= l book.created_at %></td>-->
       </tr>
     <% end %>
   </tbody>
