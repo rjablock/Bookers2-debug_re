@@ -15,9 +15,12 @@ class Book < ApplicationRecord
   scope :created_last_week, -> { where(created_at: 2.week.ago.beginning_of_day..1.week.ago.end_of_day) }
 
   scope :created_days_ago, ->(n) { where(created_at: n.days.ago.all_day) }
-  
+
   scope :latest, -> {order(created_at: :desc)}
   scope :star_count, -> {order(star: :desc)}
+
+  has_many :book_tags, dependent: :destroy, foreign_key: 'book_id'
+  has_many :tags, through: :book_tags
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
@@ -32,6 +35,21 @@ class Book < ApplicationRecord
       Book.where('title LIKE ?', '%'+content)
     else
       Book.where('title LIKE ?', '%'+content+'%')
+    end
+  end
+
+  def save_tags(savebook_tags)
+    current_tags = self.tags.pluck(:name) unless self.tags.nil?
+    old_tags = current_tags - savebook_tags
+    new_tags = savebook_tags - current_tags
+
+    old_tags.each do |old_name|
+      self.tags.delete Tag.find_by(name:old_name)
+    end
+
+    new_tags.each do |new_name|
+      book_tag = Tag.find_or_create_by(name:new_name)
+      self.tags << book_tag
     end
   end
 
