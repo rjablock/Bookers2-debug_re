@@ -8,6 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "jquery"
+window.$ = window.jQuery = require('jquery');
 import "popper.js"
 import "bootstrap"
 import '@fortawesome/fontawesome-free/js/all';
@@ -26,3 +27,5 @@ window.raty = function(elem,opt) {
   raty.init();
   return raty;
 }
+
+import "jquery.inview";
